@@ -9,9 +9,21 @@ Complementary Color:
 E43A7C  B84974  A61A50  F26CA0  F291B6
 */
 
+/*
+rgb(41, 128, 185)
+*/
+
+
 body, html {
     width: 100%;
     height: 100%;
+
+}
+
+body {
+  padding-top: 3rem;
+  background: #ededed;
+  font: 14px/1.5 Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 * {
@@ -21,23 +33,33 @@ body, html {
 }
 
 header {
-    height: 2rem;
+    height: 3rem;
     display: flex;
     font-size: 0;
-    background: white;
     position: relative;
+    padding-top:.5rem;
+    /*border-bottom: rgb(172, 172, 172) solid 1px;*/
+    background: rgba(255, 255, 255, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right:0;
 }
 
 header::after {
     content: '';
     display: block;
-    box-shadow: 0 0 1rem black;
+    box-shadow: 0 0 .4rem rgba(0, 0, 0, 0.78);
     position: absolute;
-    top: 0.3rem;
+    top: 0rem;
     left: -10rem;
     right: -10rem;
     bottom: 0;
     z-index: -1;
+}
+header a {
+  color: rgb(41, 128, 185);
+  font-weight: 500;
 }
 
 header h1, header aside {
@@ -48,8 +70,9 @@ header h1, header aside {
 
 header h1 {
     flex: 2;
-    color: #9BEC3C;
+    color: rgb(41, 128, 185);
     font-size: 1.4rem;
+
 }
 
 header aside {
@@ -65,7 +88,8 @@ header aside a {
 
 /* generic styles */
 a {
-    color: #A61A50;
+    color: rgb(41, 128, 185);
+    text-decoration: none;
 }
 
 a:hover {
@@ -109,7 +133,7 @@ input:focus, textarea:focus {
 }
 
 button, .button {
-    
+
     border: none;
     outline: none;
     padding: 0.4em 1em;
@@ -156,7 +180,9 @@ button.cancel, .cancel.button {
     background: #A61A50;
 }
 
-
+.page {
+  /*padding-top: 3.5rem;*/
+}
 /* Modals */
 .backdrop {
     position: absolute;
@@ -174,7 +200,7 @@ button.cancel, .cancel.button {
     max-height: 40em;
     padding: 1.5em;
     border-radius: 0.3em;
-    background: white;    
+    background: white;
     overflow: hidden;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
 }
@@ -198,9 +224,10 @@ button.cancel, .cancel.button {
 
 .summary {
     display: block;
-    border: 1px solid #9BEC3C;
+    border: 1px solid #cdceca;
     margin: 0.75em;
     text-align: center;
+    background: #fff;
 
 }
 
@@ -233,14 +260,14 @@ button.cancel, .cancel.button {
     height: 0;
     border-style: solid;
     border-width: 0 1em 1.73em 1em;
-    border-color: transparent transparent #167282 transparent;
+    border-color: transparent transparent rgb(41, 128, 185) transparent;
     content: '';
     display: block;
 }
 
 .votes .down-vote:after {
     border-width: 1.73em 1em 0 1em;
-    border-color: #167282 transparent transparent transparent;
+    border-color: rgb(41, 128, 185) transparent transparent transparent;
 }
 
 .votes .count {
