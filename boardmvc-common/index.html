@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BoardMVC</title>
+    <link rel="stylesheet" type="text/css" href="boardmvc.css">
+</head>
+<body>
+
+<header>
+    <h1><a href="/">BoardMVC</a></h1>
+    <aside>
+        <div class="not-logged-in">
+            <a href="/login" class="log-in">log in</a>
+            <a href="/signup" class="sign-up">sign up</a>
+        </div>
+        <div class="logged-in" style="display: none">
+            <a href="/profile/testuser" class="my profile">testuser</a>
+            <a href="/logout" class="log-out">log out</a>
+        </div>
+    </aside>
+</header>
+
+<div role="main" class="page">
+    <div class="listing"></div>
+    <div class="profile" style="display: none">
+        <h1>testuser</h1>
+    </div>
+    <div class="item"></div>
+</div>
+<div class="backdrop" style="display: none">
+    <div class="modal log-in-modal">
+        <h2>Log In</h2>
+        <form>
+            <label><span>Username: </span><input type="text" name="username"></label>
+            <label><span>Password: </span><input type="password" name="password"></label>
+            <button class="cancel">Cancel</button>
+            <button type="submit">Log in</button>
+        </form>
+    </div>
+</div>
+
+<footer></footer>
+
+<script type="text/html" id="comment-template">
+    <div class="comment">
+        <p>{text}</p>
+        <cite>- <a href="/user/{author}">{author}</a></cite> <a href="/reply/{id}">reply</a>
+
+        {repliesHTML}
+    </div>
+</script>
+<script type="text/html" id="summary-template">
+    <div class="summary">
+        <div class="votes">
+            <div class="up-vote"></div>
+            <div class="count">
+                {votes.score}
+            </div>
+            <div class="down-vote"></div>
+        </div><!--
+     --><div class="rows">
+            <h2 class="link"><a href="{link}" target="_blank">{link}</a></h2>
+            posted by <a href="/user/{author}">{author}</a>
+            -
+            <a href="/c/{id}">comments</a>
+        </div>
+    </div>
+</script>
+
+<!-- interactivity for testing -->
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.3.0/es5-shim.min.js"></script>
+<script src="//cdn.rawgit.com/paulmillr/es6-shim/40898d3716bf754f904363fdfbaf2746b74b8163/es6-shim.js"></script> -->
+<script src="demo.js"></script>
+</body>
+</html>

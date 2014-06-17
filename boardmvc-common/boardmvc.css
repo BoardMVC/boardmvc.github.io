@@ -1,0 +1,268 @@
+/*
+Primary Color:
+9BEC3C  89BF4C  69AD1B  B7F66E  C8F693
+Secondary Color A:
+309EB2  3B8290  167182  64C7DA  84CCDA
+Secondary Color B:
+FFEF41  CEC352  BAAD1D  FFF372  FFF699
+Complementary Color:
+E43A7C  B84974  A61A50  F26CA0  F291B6
+*/
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    height: 2rem;
+    display: flex;
+    font-size: 0;
+    background: white;
+    position: relative;
+}
+
+header::after {
+    content: '';
+    display: block;
+    box-shadow: 0 0 1rem black;
+    position: absolute;
+    top: 0.3rem;
+    left: -10rem;
+    right: -10rem;
+    bottom: 0;
+    z-index: -1;
+}
+
+header h1, header aside {
+    width: auto;
+    margin: 0.35rem 1rem;
+    line-height: 1;
+}
+
+header h1 {
+    flex: 2;
+    color: #9BEC3C;
+    font-size: 1.4rem;
+}
+
+header aside {
+    flex: 1;
+}
+
+header aside a {
+    display:  inline-block;
+    width: 49.5%;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* generic styles */
+a {
+    color: #A61A50;
+}
+
+a:hover {
+    color: #E43A7C;
+}
+
+a:focus {
+    color: #B84974;
+}
+
+label {
+    display: flex;
+    margin-bottom: 1em;
+    font-size: 1.3em;
+}
+
+label span {
+    display: block;
+    margin: auto 1em auto 0;
+    line-height: 1;
+    flex: 1;
+}
+
+label input {
+    display: block;
+    flex: 3;
+}
+
+input, textarea {
+    padding: 0.3em;
+    border-radius: 0.35em;
+    outline: none;
+    border: 1px solid #167182;
+    height: 100%;
+    line-height: 1;
+    font-size: 0.65em;
+}
+
+input:focus, textarea:focus {
+    box-shadow: 0.02em 0.02em 0.27em 0.09em #309EB2;
+}
+
+button, .button {
+    
+    border: none;
+    outline: none;
+    padding: 0.4em 1em;
+    border-radius: 0.5em;
+    cursor: pointer;
+    background: #167182;
+/*    box-shadow: inset 0 0 0.75em white, inset 0 0 0.75em white;*/
+    font-size: 0.9em;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+button:after, .button:after {
+    display: none;
+    content: '';
+    position: absolute;
+}
+
+button:hover:after, .button:hover:after {
+    display: block;
+    top: 50%;
+    left: 15%;
+    right: 15%;
+    box-shadow: 0 0 2em 0.1em rgba(0, 0, 0, 0.4);
+    bottom: 50%;
+}
+
+button:active:after, .button:active:after {
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0.1em 0.1em 0.75em rgba(0, 0, 0, 0.4), inset 0 0 0.75em rgba(0, 0, 0, 0.4);
+}
+
+/* defaults to positive */
+button.positive, .positive.button, button[type="submit"] {
+    background: #69AD1B;
+}
+
+button.cancel, .cancel.button {
+    background: #A61A50;
+}
+
+
+/* Modals */
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.backdrop > * {
+    margin: auto;
+    width: 25em;
+    max-height: 40em;
+    padding: 1.5em;
+    border-radius: 0.3em;
+    background: white;    
+    overflow: hidden;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
+}
+
+.backdrop > * > h2 {
+    font-size: 1.3em;
+    color: #167182;
+    margin-bottom: 1em;
+    padding-bottom: 0.1em;
+
+    padding-top: 3em;
+    margin-top: -3em;
+
+    margin-left: -4em;
+    padding-left: 4em;
+    padding-right: 8em;
+    width: 150%;
+
+    box-shadow: 0 0 0.5em 0.05em #167182;
+}
+
+.summary {
+    display: block;
+    border: 1px solid #9BEC3C;
+    margin: 0.75em;
+    text-align: center;
+
+}
+
+.summary .votes, .summary .rows {
+    margin: 0.75em;
+    display: inline-block;
+}
+
+.summary .votes {
+    width: 7%;
+}
+
+.summary .rows {
+    width: 65%;
+    width: -webkit-calc(93% - 1.5em);
+    width: calc(93% - 3em);
+    text-align: left;
+}
+
+.votes .up-vote, .votes .down-vote {
+    width: 2em;
+    height: 2em;
+    display: block;
+    cursor: pointer;
+    margin: auto;
+}
+
+.votes .up-vote:after, .votes .down-vote:after {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 1em 1.73em 1em;
+    border-color: transparent transparent #167282 transparent;
+    content: '';
+    display: block;
+}
+
+.votes .down-vote:after {
+    border-width: 1.73em 1em 0 1em;
+    border-color: #167282 transparent transparent transparent;
+}
+
+.votes .count {
+    margin: 0.3em auto;
+    line-height: 1;
+}
+
+.comment {
+    margin: 0.4em auto;
+    font-size: 1.15em;
+    line-height: 1.33;
+    max-width: 95%;
+}
+
+.comment cite {
+    margin: 2.5em 0.1em;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.comments {
+    margin-left: 0.1em;
+    border-left: 0.2em solid rgba(0, 0, 0, 0.2);
+    padding-left: 1em;
+}
