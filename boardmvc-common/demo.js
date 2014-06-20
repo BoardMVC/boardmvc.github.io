@@ -27,9 +27,9 @@ var route = function(path, cb){
     document.body.addEventListener("click", function(e){
         var target = e.target;
         while( target.parentNode ) {
-            if (target.tagName === "A" && target.pathname.indexOf(path) !== -1) {
+            if (target.tagName === "A" && target.pathname.indexOf(path) !== -1 && target.host === location.host) {
                 e.preventDefault();
-                var title = "BoardMVC - " + target.pathname.split('/').filter(Boolean).join(' ');
+                var title = getTitle(target.pathname);
                 history.pushState(null, title, target.pathname);
                 gotoCurrentRoute();
                 
@@ -40,14 +40,20 @@ var route = function(path, cb){
     });
 }
 
+function getTitle(path) {
+    return "BoardMVC - " + path.split('/').filter(Boolean).join(' ');
+}
+
 function gotoCurrentRoute(){
     var path = location.pathname;
+    document.title = getTitle(path);
     for (var i=0; i<_routes.length; i++) {
         if (path.indexOf(_routes[i][0]) !== -1) {
             _routes[i][1](path.split("/").filter(Boolean));
             return;
         }
     }
+    
     // TODO 404 page
     alert(404);
 }
