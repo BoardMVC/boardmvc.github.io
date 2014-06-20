@@ -30,9 +30,10 @@ var route = function(path, cb){
             if (target.tagName === "A" && target.pathname.indexOf(path) !== -1 && target.host === location.host) {
                 e.preventDefault();
                 var title = getTitle(target.pathname);
-                history.pushState(null, title, target.pathname);
+                if (title !== document.title) {
+                    history.pushState(null, title, target.pathname);    
+                }
                 gotoCurrentRoute();
-                
             }
 
             target = target.parentNode;
@@ -41,7 +42,8 @@ var route = function(path, cb){
 }
 
 function getTitle(path) {
-    return "BoardMVC - " + path.split('/').filter(Boolean).join(' ');
+    var suffix = path.split('/').filter(Boolean).join(' ');
+    return "BoardMVC" + (suffix.length ? ' - ' + suffix : '');
 }
 
 function gotoCurrentRoute(){
