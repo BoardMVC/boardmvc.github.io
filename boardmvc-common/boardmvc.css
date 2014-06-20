@@ -215,6 +215,21 @@ button.cancel, .cancel.button {
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
 }
 
+@media (max-width: 39em) {
+    .backdrop > * > form > label {
+        display: block;
+    }
+
+    .backdrop > * > form > label > span, .backdrop > * > form > label > input {
+        display: block;
+        width: 100%;
+    }
+}
+
+.backdrop .modal.sign-up-modal {
+    width: 35em;
+}
+
 .backdrop > * > h2 {
     font-size: 1.3em;
     color: #167182;

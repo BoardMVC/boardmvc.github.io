@@ -165,6 +165,15 @@ onClick(qs(".log-in-modal button[type=submit]"), function(){
     modal(null);
 });
 
+onClick(qs(".sign-up-modal button[type=submit]"), function(){
+    setLoggedIn(true);
+    modal(null);
+});
+
+onClick(qsa(".modal button.cancel"), function(){
+    modal(null);
+});
+
 function clone(obj){
     var obj2 = {};
     for (var k in obj) {
