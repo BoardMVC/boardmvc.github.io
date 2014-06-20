@@ -257,6 +257,18 @@ button.cancel, .cancel.button {
     text-align: left;
 }
 
+.profile > h1 {
+    margin-left: 2em;
+    text-align: center;
+    font-size: 2.5em;
+}
+
+.profile a .self {
+    color: rgb(50, 205, 50);
+    font-weight: 200;
+    font-size: 1.2em;
+}
+
 .votes .up-vote, .votes .down-vote {
     width: 2em;
     height: 2em;

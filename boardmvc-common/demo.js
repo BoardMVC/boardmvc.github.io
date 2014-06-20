@@ -87,9 +87,51 @@ onClick(qs(".backdrop"), function(e){
 });
 
 route("/user/", function(parts){
-    var username = parts[1];
+    var author = parts[1];
     switchView("profile");
-    qs('.page > .profile > h1').textContent = username;
+    
+    var points = 0;
+
+    var hasAuthor = function(thing){
+        var key = thing.comments ? "comments" : "replies";
+        var subs = thing[key];
+        if (subs) {
+            subs = subs.map(hasAuthor).filter(Boolean);
+        }
+        if (subs.length) {
+            // shallow clone
+            var thing = clone(thing);
+            // update the sub items
+            thing[key] = subs;
+        }
+
+        if (thing.author === author) {
+            if (!subs.length) {
+                thing = clone(thing);
+            }
+
+            thing.author = insert("<span class='self'>{author}</span>", {author: author});
+
+            points += thing.ups - thing.downs;
+            return thing;
+        }
+
+        if (thing.author === author || subs.length) {
+            return thing;
+        }
+
+        return false;
+    }
+
+    var results = items.map(hasAuthor).filter(Boolean);
+    var profileEl = qs(".page > .profile > .recent-items");
+    profileEl.innerHTML = "";
+    results.forEach(function(result){
+        profileEl.appendChild(makeItemNode(result));
+    });
+    
+    qs('.page > .profile > h1').textContent = insert("{author} has {points} points", {author: author, points: points});
+
 });
 
 route("/c/", function(parts){
@@ -103,6 +145,7 @@ route("/c/", function(parts){
 });
 
 route("/", function(){
+    switchView("listing");
     var listing = qs(".page > .listing");
 
     for (var i=0; i<items.length; i++) {
@@ -113,6 +156,14 @@ onClick(qs(".log-in-modal button[type=submit]"), function(){
     setLoggedIn(true);
     modal(null);
 });
+
+function clone(obj){
+    var obj2 = {};
+    for (var k in obj) {
+       obj2[k] = obj[k];
+    }
+    return obj2;
+}
 
 function switchView(name){
     qsa('body > .page > div').forEach(function(el){
