@@ -264,7 +264,7 @@ button.cancel, .cancel.button {
 }
 
 .profile a .self {
-    color: rgb(50, 205, 50);
+    color: limegreen;
     font-weight: 200;
     font-size: 1.2em;
 }
@@ -286,10 +286,22 @@ button.cancel, .cancel.button {
     content: '';
     display: block;
 }
+.votes.good .up-vote:after {
+    border-bottom-color: limegreen;
+}
+.votes.bad .up-vote:after {
+    border-bottom-color: red;
+}
 
 .votes .down-vote:after {
     border-width: 1.73em 1em 0 1em;
     border-color: rgb(41, 128, 185) transparent transparent transparent;
+}
+.votes.good .down-vote:after {
+    border-top-color: limegreen;
+}
+.votes.bad .down-vote:after {
+    border-top-color: red;
 }
 
 .votes .count {

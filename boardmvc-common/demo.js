@@ -204,6 +204,8 @@ function modal(name){
     });
 
     qs(".backdrop").style.display = name ? "" : "none";
+    document.body.style.overflow = name ? "hidden" : "";
+    document.body.style.maxHeight = name ? "100%" : "";
 }
 
 function makeCommentHTML(comment) {
@@ -231,6 +233,9 @@ function makeItemNode(params){
 function makeSummaryNode(params){
     var el = document.createElement("div");
     var p = Object.create(params);
+    p.extraVoteClass = p.score > 20 ? "good" 
+        : p.score < 0 ? "bad" 
+        : "";
     el.innerHTML = insert(_summaryTemplate, p);
     return el;
 }
