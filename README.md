@@ -51,6 +51,7 @@ There are several main parts of this application:
 ### Summary
 
 The summary of an item contains 
+ 1. the title which links to the external url of the item
  1. the title which links to the [item][a-item] url
  1. a reply button which links to the item page
     * focuses and scrolls to the [comment box][a-comment-box]
@@ -62,7 +63,7 @@ The summary of an item contains
 The vote button is a an up arrow, a down arrow, and its counter
 
 * the counter must be red if < 0 (`class="bad"`)
-* the counter must be green if > 50 (`class="good"`)
+* the counter must be green if > 20 (`class="good"`)
 * the counter must otherwise be black
 * the counter number must be formatted like this: 1 10 100 1,000 10,000 1,000,000
 * when clicked the item **or** comment must be voted up or down
