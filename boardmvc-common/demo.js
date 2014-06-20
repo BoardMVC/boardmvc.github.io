@@ -21,19 +21,37 @@ var onClick = function(el, fn) {
         fn(e);
     }, false) };
 
+_routes = [];
 var route = function(path, cb){
+    _routes.push([path, cb]);
     document.body.addEventListener("click", function(e){
         var target = e.target;
         while( target.parentNode ) {
             if (target.tagName === "A" && target.pathname.indexOf(path) !== -1) {
                 e.preventDefault();
-                cb(target.pathname.split("/").filter(Boolean));
+                var title = "BoardMVC - " + target.pathname.split('/').filter(Boolean).join(' ');
+                history.pushState(null, title, target.pathname);
+                gotoCurrentRoute();
+                
             }
 
             target = target.parentNode;
         } 
     });
 }
+
+function gotoCurrentRoute(){
+    var path = location.pathname;
+    for (var i=0; i<_routes.length; i++) {
+        if (path.indexOf(_routes[i][0]) !== -1) {
+            _routes[i][1](path.split("/").filter(Boolean));
+            return;
+        }
+    }
+    // TODO 404 page
+    alert(404);
+}
+window.addEventListener("popstate", gotoCurrentRoute, false);
 
 // calculate scores
 var _id = 1000000, itemMap = {};
@@ -84,12 +102,13 @@ route("/c/", function(parts){
     el.appendChild(makeItemNode(post));
 });
 
-var listing = qs(".page > .listing");
+route("/", function(){
+    var listing = qs(".page > .listing");
 
-for (var i=0; i<items.length; i++) {
-    listing.appendChild(makeSummaryNode(items[i]));
-}
-
+    for (var i=0; i<items.length; i++) {
+        listing.appendChild(makeSummaryNode(items[i]));
+    }
+});
 onClick(qs(".log-in-modal button[type=submit]"), function(){
     setLoggedIn(true);
     modal(null);
@@ -185,3 +204,5 @@ function insert(template, mapping) {
 function extract(obj, key){
     return key.split('.').reduce(function(p, c) {return p[c]}, obj)
 }
+
+gotoCurrentRoute();
