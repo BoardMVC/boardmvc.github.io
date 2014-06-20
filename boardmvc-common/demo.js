@@ -1,7 +1,7 @@
 var items = (function(){
     var req = new XMLHttpRequest();
     req.async = false;
-    req.open("get", "items.json", false);
+    req.open("get", "/items.json", false);
     req.send();
     return JSON.parse(req.responseText);
 })();
