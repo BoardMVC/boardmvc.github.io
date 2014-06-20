@@ -69,21 +69,31 @@ header h1, header aside {
 }
 
 header h1 {
-    flex: 2;
+    flex: 5;
     color: rgb(41, 128, 185);
     font-size: 1.4rem;
-
 }
 
 header aside {
     flex: 1;
 }
+@media (max-width: 50em) {
+    header aside {
+        flex: 5;
+    }
+}
 
 header aside a {
     display:  inline-block;
-    width: 49.5%;
+    width: auto;
+    padding: 0 1em;
     text-align: center;
     font-size: 1rem;
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+header aside a:last-of-type {
+    border-right: none;
 }
 
 /* generic styles */
