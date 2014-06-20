@@ -275,9 +275,13 @@ button.cancel, .cancel.button {
     line-height: 1;
 }
 
+.item > div > .comment {
+    font-size: 1.25em;
+}
+
 .comment {
     margin: 0.4em auto;
-    font-size: 1.15em;
+    font-size: 0.99em;
     line-height: 1.33;
     max-width: 95%;
 }
