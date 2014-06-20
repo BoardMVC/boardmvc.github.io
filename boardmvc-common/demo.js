@@ -10,7 +10,7 @@ var qs = document.querySelector.bind(document);
 var qsa = function(sel){ return [].slice.call(document.querySelectorAll(sel)); };
 var _commentTemplate = document.getElementById("comment-template").innerHTML;
 var _summaryTemplate = document.getElementById("summary-template").innerHTML;
-var onClick = function(el, fn) { 
+var onClick = function(el, fn) {
     if (el.length) {
         for (var i=0; i<el.length; i++) onClick(el[i], fn);
         return;
@@ -18,7 +18,7 @@ var onClick = function(el, fn) {
 
     el.addEventListener('click', function(e){
         e.preventDefault();
-        fn(e);    
+        fn(e);
     }, false) };
 
 var route = function(path, cb){
@@ -34,6 +34,16 @@ var route = function(path, cb){
         } 
     });
 }
+
+// calculate scores
+var _id = 1000000, itemMap = {};
+items.forEach(function setScore(item){
+    item.score = item.ups - item.downs;
+    item.id = ++_id;
+    itemMap[_id] = item;
+    var subcomments = item.comments || item.replies || [];
+    subcomments.forEach(setScore);
+});
 
 onClick(qs('.not-logged-in .log-in'), function(){
     modal("log-in-modal");
@@ -66,10 +76,7 @@ route("/user/", function(parts){
 
 route("/c/", function(parts){
     var id = +parts[1];
-
-    var post = items.filter(function(x){
-        return x.id === id;
-    })[0];
+    var post = itemMap[id];
 
     switchView("item");
     var el = qs(".page > .item");
@@ -78,25 +85,6 @@ route("/c/", function(parts){
 });
 
 var listing = qs(".page > .listing");
-for (var i=0; i<items.length; i++) {
-    items[i].votes = {
-        score: Math.floor(Math.random()*100 - 20)
-    };
-
-    items[i].id = Math.floor(Math.random()*1e5) + 1e4 - 1;
-
-    for (var j=0; j<items[i].comments.length; j++) {
-        items[i].comments[j].id = Math.floor(Math.random()*1e9) + 1e8 - 1;
-        items[i].comments.forEach(function(comment){
-            comment.text = comment.text.replace(/</g, "&lt;")
-        })
-    }
-}
-
-
-items.sort(function(a, b){
-    return b.votes.score - a.votes.score;
-});
 
 for (var i=0; i<items.length; i++) {
     listing.appendChild(makeSummaryNode(items[i]));
@@ -165,7 +153,6 @@ function makeItemNode(params){
 function makeSummaryNode(params){
     var el = document.createElement("div");
     var p = Object.create(params);
-    p.author = params.comments[0].author;
     el.innerHTML = insert(_summaryTemplate, p);
     return el;
 }
@@ -173,46 +160,6 @@ function makeSummaryNode(params){
 function randomAuthor(){
     var authors = "john|hank|steve|bob|nancy|jane|testuser".split("|");
     return authors[Math.floor(Math.random() * authors.length)];
-}
-
-function makeRandomItem(){
-    var randomInt = function(min, max){ return Math.floor(Math.random() * (max - min)) + min; }
-    var item = {
-        votes:  {
-            up: randomInt(0, 50),
-            down: randomInt(0, 20),
-        },
-        link: "http://google.com",
-        id: Math.floor(Math.random() * 1e5) + 1000,
-        author: randomAuthor(),
-        comments: makeRandomComment(0).replies
-    };
-
-    item.votes.score = item.votes.up - item.votes.down;
-    console.log(item)
-    return item;
-}
-
-function makeRandomComment(depth) {
-    depth |= 0;
-    var comment = {
-        text: "This is a comment",
-        author: randomAuthor(),
-        replies: []
-    };
-
-    if (depth <= 4) {
-        var i = Math.floor(Math.random() * 10 - depth * 1.5);
-        if (i < 0) {
-            i = 0;
-        }
-
-        for (; i>0; i--) {
-            comment.replies.push(makeRandomComment(depth + 1));
-        }
-    }
-
-    return comment;
 }
 
 function insert(template, mapping) {
